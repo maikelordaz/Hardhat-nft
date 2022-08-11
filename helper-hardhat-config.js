@@ -25,6 +25,7 @@ const BASE_FEE = "250000000000000000"
 const GAS_PRICE_LINK = 1e9
 const developmentChains = ["hardhat", "localhost"]
 const VERIFICATION_BLOCK_CONFIRMATIONS = 6
+const FUND_AMOUNT = "1000000000000000000000"
 
 module.exports = {
     networkConfig,
@@ -34,4 +35,5 @@ module.exports = {
     VERIFICATION_BLOCK_CONFIRMATIONS,
     BASE_FEE,
     GAS_PRICE_LINK,
+    FUND_AMOUNT,
 }
