@@ -6,7 +6,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
 
-    log("--------------- Deploying... ---------------")
+    log("--------------- Deploying Basic NFT Contract... ---------------")
 
     const waitBlockConfirmations = developmentChains.includes(network.name)
         ? 1
@@ -21,7 +21,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         waitConfirmations: waitBlockConfirmations,
     })
 
-    log("--------------- Deploy process finished ---------------")
+    log("--------------- Basic NFT Contract Deployed! ---------------")
 
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("--------------- Verifying!... --------------- ")
