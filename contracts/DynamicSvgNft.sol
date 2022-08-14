@@ -58,10 +58,8 @@ contract DynamicSvgNft is ERC721 {
 
     // PURE / VIEW FUNCTIONS
 
-    // Con esta funcion obtengo el string que me da la imagen
     function svgToImage(string memory svg) public pure returns (string memory) {
         string memory svgBase64Encoded = Base64.encode(bytes(string(abi.encodePacked(svg))));
-        // Concateno de forma compacta "data:image/svg+xml;base64," con svgBase64Encoded
         return string(abi.encodePacked(base64EncodedSvgPrefix, svgBase64Encoded));
     }
 
@@ -71,28 +69,18 @@ contract DynamicSvgNft is ERC721 {
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        // Verifico el precio
         (, int256 price, , , ) = i_priceFeed.latestRoundData();
-        // Asigno el URI al low
         string memory imageURI = i_lowImageURI;
         if (price >= s_tokenIdToHighValue[tokenId]) {
             imageURI = i_highImageUri;
         }
 
-        // Si el precio es mayor, cambio el URI a high
-
-        // Retorno el string de la codificación que me va a dar la metadata
         return
-            // Hardcode la concatenacion a string
             string(
-                // Concateno de forma compacta el resultado de _baseURI() mas el resultado de la codificación de la librería
                 abi.encodePacked(
                     _baseURI(),
-                    // Le aplico la librería Base 64
                     Base64.encode(
-                        // Hardcode la concatenacion a bytes
                         bytes(
-                            // Concateno de forma compacta mi plantilla de metadata
                             abi.encodePacked(
                                 '{"name":"',
                                 name(),
