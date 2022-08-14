@@ -14,10 +14,6 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 import "base64-sol/base64.sol";
 
-// ERRORS
-
-error DynamicSvgNft__NonExistantToken();
-
 // CONTRACT
 
 contract DynamicSvgNft is ERC721 {
@@ -74,9 +70,7 @@ contract DynamicSvgNft is ERC721 {
     }
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        if (_exists(tokenId)) {
-            revert DynamicSvgNft__NonExistantToken();
-        }
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         // Verifico el precio
         (, int256 price, , , ) = i_priceFeed.latestRoundData();
         // Asigno el URI al low
